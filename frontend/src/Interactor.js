@@ -39,15 +39,18 @@ function Main (props) {
   };
 
   const updatePalletRPCs = () => {
+    console.log('==== updatePalletRPCs interxType: ', interxType);
     if (!api) { return; }
     const apiType = getApiType(api, interxType);
     const palletRPCs = Object.keys(apiType).sort()
       .filter(pr => Object.keys(apiType[pr]).length > 0)
       .map(pr => ({ key: pr, value: pr, text: pr }));
+    console.log('==== palletRPCs:', palletRPCs);
     setPalletRPCs(palletRPCs);
   };
 
   const updateCallables = () => {
+    console.log('==== updateCallables');
     if (!api || palletRpc === '') { return; }
     const callables = Object.keys(getApiType(api, interxType)[palletRpc]).sort()
       .map(c => ({ key: c, value: c, text: c }));
@@ -55,6 +58,7 @@ function Main (props) {
   };
 
   const updateParamFields = () => {
+    console.log('==== updateParamFields');
     if (!api || palletRpc === '' || callable === '') {
       setParamFields([]);
       return;
@@ -138,6 +142,7 @@ function Main (props) {
   };
 
   const onInterxTypeChange = (ev, data) => {
+    console.log('==== data.value: ', data.value);
     setInterxType(data.value);
     // clear the formState
     setFormState(initFormState);

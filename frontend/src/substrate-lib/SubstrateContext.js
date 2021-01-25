@@ -31,11 +31,13 @@ const INIT_STATE = {
 // Reducer function for `useReducer`
 
 const reducer = (state, action) => {
+  console.log('==== reducer action.type:', action.type);
   switch (action.type) {
     case 'CONNECT_INIT':
       return { ...state, apiState: 'CONNECT_INIT' };
 
     case 'CONNECT':
+      console.log('==== reducer action.type CONNECT action.payload:', action.payload);
       return { ...state, api: action.payload, apiState: 'CONNECTING' };
 
     case 'CONNECT_SUCCESS':
@@ -68,7 +70,10 @@ const connect = (state, dispatch) => {
 
   dispatch({ type: 'CONNECT_INIT' });
 
+  console.log('==== connect socket: ', connect);
   const provider = new WsProvider(socket);
+  console.log('==== connect provider: ', provider);
+  console.log('==== ApiPromise jsonrpc: ', jsonrpc);
   const _api = new ApiPromise({ provider, types, rpc: jsonrpc });
 
   // Set listeners for disconnection and reconnection event.

@@ -3,13 +3,14 @@
 use codec::{Encode, Decode};
 use frame_support::{
 	decl_module, decl_storage, decl_error, decl_event, ensure, StorageValue, StorageMap, Parameter,
-	debug,
+	// debug,
 	traits::{Randomness, Currency, ExistenceRequirement},
 };
 use sp_io::hashing::blake2_128;
 use frame_system::{self as system, ensure_signed};
 use sp_runtime::{DispatchError, RuntimeDebug, traits::{AtLeast32Bit, Member, Bounded,}};
 use crate::link::{LinkedList, LinkedItem};
+// use sp_core::blake2_128;
 
 mod link;
 
@@ -39,11 +40,11 @@ decl_storage! {
 		pub OwnedKitties get(fn owned_kitties): map hasher(blake2_128_concat)
 			(T::AccountId, Option<T::KittyIndex>) => Option<KittyLinkedItem<T>>;
 
-		/// Store owner of each kitity.
+		/// Store owner of each kitity. KittyIndex:Account
 		pub KittyOwners get(fn kitty_owner): map hasher(blake2_128_concat) T::KittyIndex =>
 			Option<T::AccountId>;
 
-		/// Get kitty price. None means not for sale.
+		/// Get kitty price. None means not for sale.  KittyIndex:Balance
 		pub KittyPrices get(fn kitty_price): map hasher(blake2_128_concat) T::KittyIndex =>
 			Option<BalanceOf<T>>;
 	}
